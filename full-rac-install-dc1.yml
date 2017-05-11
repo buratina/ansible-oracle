@@ -3,7 +3,7 @@
 
  - name: Host configuration
    hosts: orarac-dc1
-   user: ansible
+   user: vagrant
    sudo: yes
    roles:
       - common
@@ -12,7 +12,7 @@
 
  - name: Oracle Grid Infrastructure installation & ASM Configuration
    hosts: orarac-dc1
-   user: ansible
+   user: vagrant
    sudo: yes
    roles:
       - oraswgi-install
@@ -20,7 +20,7 @@
 
  - name: Database Server Installation & Database Creation
    hosts: orarac-dc1
-   user: ansible
+   user: vagrant
    sudo: yes
    roles:
       - oraswdb-install
@@ -28,7 +28,7 @@
 
  - name: Tweaks
    hosts: orarac-dc1
-   user: ansible
+   user: vagrant
    sudo: yes
    roles:
       - cxoracle

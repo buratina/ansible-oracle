@@ -107,8 +107,7 @@
      - sshkeys
 
   - name: ssh-keys | Add ssh-keys & authorized_keys to oracle user
-    copy: src={{ item[1] }} dest=/home/{{ item[0].username }}/.ssh  owner={{ item[0].username }} group={{ item[0].primgroup }} force=yes mode=600
-    remote_src: True
+    copy: src={{ item[1] }} dest=/home/{{ item[0].username }}/.ssh  owner={{ item[0].username }} group={{ item[0].primgroup }} force=yes mode=600 remote_src=True
     when: configure_ssh and configure_cluster
     with_nested:
         - "{{oracle_users}}"
@@ -117,8 +116,7 @@
        - sshkeys
 
   - name: ssh-keys | Add ssh-keys & authorized_keys to grid user
-    copy: src={{ item[1] }} dest=/home/{{ item[0].username }}/.ssh  owner={{ item[0].username }} group={{ item[0].primgroup }} force=yes mode=600
-    remote_src: True
+    copy: src={{ item[1] }} dest=/home/{{ item[0].username }}/.ssh  owner={{ item[0].username }} group={{ item[0].primgroup }} force=yes mode=600 remote_src=True
     when: configure_ssh and configure_cluster and role_separation
     with_nested:
         - "{{grid_users}}"
@@ -148,16 +146,14 @@
      - sshkeys
 
   - name: ssh-keys | Copy known_hosts to oracle user
-    copy: src={{keyfile}} dest=/home/{{ item.username }}/.ssh/known_hosts owner={{ item.username }} group={{ item.primgroup }}
-    remote_src: True
+    copy: src={{keyfile}} dest=/home/{{ item.username }}/.ssh/known_hosts owner={{ item.username }} group={{ item.primgroup }} remote_src=True
     with_items: "{{oracle_users}}"
     when: configure_ssh and configure_cluster
     tags:
      - sshkeys
 
   - name: ssh-keys | Copy known_hosts to grid user
-    copy: src={{keyfile}} dest=/home/{{ item.username }}/.ssh/known_hosts owner={{ item.username }} group={{ item.primgroup }}
-    remote_src: True
+    copy: src={{keyfile}} dest=/home/{{ item.username }}/.ssh/known_hosts owner={{ item.username }} group={{ item.primgroup }} remote_src=True
     with_items: "{{grid_users}}"
     when: configure_ssh and configure_cluster and role_separation
     tags:

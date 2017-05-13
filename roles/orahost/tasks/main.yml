@@ -133,8 +133,6 @@
     tags:
      - sshkeys
 
-  - pause:
-
   - name: ssh-keys | Add FQDN to known_hosts
     local_action: shell ssh-keyscan -p {{ansible_ssh_port|default(22)}} -H {{ansible_fqdn}} 2> /dev/null >> {{keyfile}}
     ignore_errors: True

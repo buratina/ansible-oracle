@@ -206,7 +206,7 @@
     tags: hostfs
 
   - name: filesystem | Create partition and pv
-    shell:  parted -a optimal {{ item.1.device }} "mklabel gpt mkpart primary 1 -1"
+    shell:  parted -a optimal {{ item.1.device }} -s "mklabel gpt mkpart primary 1 -1"
     args:
        creates: "{{ item.1.pvname }}"
     with_subelements:

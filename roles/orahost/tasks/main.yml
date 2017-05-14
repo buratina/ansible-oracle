@@ -148,7 +148,7 @@
     ignore_errors: True
     with_nested:
         - "{{oracle_users + grid_users | default([]) }}"
-        - "{{ groups['hosts'] }}"
+        - "{{ play_hosts }}"
     when: configure_ssh and configure_cluster
     tags:
      - sshkeys
@@ -158,7 +158,7 @@
     ignore_errors: True
     with_nested:
         - "{{oracle_users + grid_users | default([]) }}"
-        - "{{ groups['hosts'] }}"
+        - "{{ play_hosts}}"
     when: configure_ssh and configure_cluster
     tags:
      - sshkeys
@@ -168,7 +168,7 @@
     ignore_errors: True
     with_nested:
         - "{{oracle_users + grid_users | default([]) }}"
-        - "{{ groups['hosts'] }}"
+        - "{{ play_hosts }}"
     when: configure_ssh and configure_cluster
     tags:
      - sshkeys

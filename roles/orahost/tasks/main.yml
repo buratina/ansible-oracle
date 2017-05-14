@@ -147,8 +147,28 @@
     shell: ssh-keyscan -p {{ansible_ssh_port|default(22)}} -H {{item.1}} 2> /dev/null >> /home/{{ item.0.username }}/.ssh/known_hosts
     ignore_errors: True
     with_nested:
-        - "{{oracle_users + grid_users | default([]) }}"
-        - "{{ play_hosts }}"
+        - "{{oracle_users}}"
+        - "{{play_hosts}}"
+    when: configure_ssh and configure_cluster
+    tags:
+     - sshkeys
+
+  - name: ssh-keys | Add short name to known_hosts
+    shell: ssh-keyscan -p {{ansible_ssh_port|default(22)}} -H {{item.1}} 2> /dev/null >> /home/{{ item.0.username }}/.ssh/known_hosts
+    ignore_errors: True
+    with_nested:
+        - "{{grid_users | default([])}}"
+        - "{{play_hosts}}"
+    when: configure_ssh and configure_cluster and role_separation
+    tags:
+     - sshkeys
+
+  - name: ssh-keys | Add FQDN to known_hosts
+    shell: ssh-keyscan -p {{ansible_ssh_port|default(22)}} -H {{hostvars[item.1].ansible_fqdn}} 2> /dev/null >> /home/{{ item.0.username }}/.ssh/known_hosts
+    ignore_errors: True
+    with_nested:
+        - "{{oracle_users}}"
+        - "{{play_hosts}}"
     when: configure_ssh and configure_cluster
     tags:
      - sshkeys
@@ -157,8 +177,18 @@
     shell: ssh-keyscan -p {{ansible_ssh_port|default(22)}} -H {{hostvars[item.1].ansible_fqdn}} 2> /dev/null >> /home/{{ item.0.username }}/.ssh/known_hosts
     ignore_errors: True
     with_nested:
-        - "{{oracle_users + grid_users | default([]) }}"
-        - "{{ play_hosts}}"
+        - "{{grid_users | default([])}}"
+        - "{{play_hosts}}"
+    when: configure_ssh and configure_cluster and role_separation
+    tags:
+     - sshkeys
+
+  - name: ssh-keys | Add IPv4 to known_hosts
+    shell: ssh-keyscan -p {{ansible_ssh_port|default(22)}} -H {{ hostvars[item.1].ansible_default_ipv4.address }} 2> /dev/null >> /home/{{ item.0.username }}/.ssh/known_hosts
+    ignore_errors: True
+    with_nested:
+        - "{{oracle_users}}"
+        - "{{play_hosts}}"
     when: configure_ssh and configure_cluster
     tags:
      - sshkeys
@@ -167,9 +197,9 @@
     shell: ssh-keyscan -p {{ansible_ssh_port|default(22)}} -H {{ hostvars[item.1].ansible_default_ipv4.address }} 2> /dev/null >> /home/{{ item.0.username }}/.ssh/known_hosts
     ignore_errors: True
     with_nested:
-        - "{{oracle_users + grid_users | default([]) }}"
-        - "{{ play_hosts }}"
-    when: configure_ssh and configure_cluster
+        - "{{grid_users | default([])}}"
+        - "{{play_hosts}}"
+    when: configure_ssh and configure_cluster and role_separation
     tags:
      - sshkeys
 

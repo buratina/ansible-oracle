@@ -126,7 +126,7 @@
 #       - sshkeys
 
   - name: ssh-keys | Add ssh-keys & authorized_keys to oracle user
-    copy: src={{ item[1] }} dest=/home/{{ item[0].username }}/.ssh  owner={{ item[0].username }} group={{ item[0].primgroup }} force=yes mode=600 remote_src=True
+    copy: src={{ item[1] }} dest=/home/{{ item[0].username }}/.ssh  owner={{ item[0].username }} group={{ item[0].primgroup }} force=yes mode=600
     when: configure_ssh and configure_cluster
     with_nested:
         - "{{oracle_users}}"

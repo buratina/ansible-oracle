@@ -7,16 +7,17 @@
          name: "{{ item }}"
          state: stopped
        with_items:
-         - oracleasm
          - oracle-ohasd
          - oracle-tfa
+         - oracleasm
 
      - name: delete installation folders
        file:
          path: "{{ item }}"
          state: absent
        with_items:
-         - /u01/*
+         - /u01/app
+         - /u01/stage
          - /home/oracle/.ssh
          - /etc/oracle
 

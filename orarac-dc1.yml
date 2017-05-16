@@ -1,0 +1,34 @@
+---
+ - name: Host configuration
+   hosts: orarac-dc1
+   roles:
+      - common
+      - orahost
+
+ - name: Storage Configuration 
+   hosts: orarac-dc1
+   roles:
+      - orahost-storage
+
+ - name: Oracle Grid Infrastructure installation
+   hosts: orarac-dc1
+   roles:
+      - oraswgi-install
+
+ - name: ASM Configuration, Database Server Installation & Database Creation
+   hosts: orarac-dc1
+   roles:
+      - oraasm-createdg
+      - oraswdb-install
+      - oradb-create
+
+ - name: Install cx_oracle
+   hosts: orarac-dc1
+   roles:
+      - cxoracle
+
+ - name: Configure Logrotate
+   hosts: orarac-dc1
+   roles:
+      - orahost-logrotate
+

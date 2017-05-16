@@ -1,0 +1,40 @@
+---
+ - name: Clean up RAC installation and reset things
+   hosts: orarac-dc1
+   tasks:
+     - name: stop oracle services
+       service:
+         name: "{{ item }}"
+         state: stopped
+       with_items:
+         - oracleasm
+         - oracle-ohasd
+         - oracle-tfa
+
+     - name: delete installation folders
+       file:
+         path: "{{ item }}"
+         state: absent
+       with_items:
+         - /u01/
+         - /home/oracle/.ssh
+         - /etc/oracle
+
+     - name: delete asm disks
+       command: oracleasm deletedisk {{ item }}
+       with_items:
+         - CRS01
+         - DATA01
+         - FRA01
+
+     - name: unmount oracle installation directory
+       mount:
+         path: /u01
+         state: absent
+
+     - name: remove volume group vgora
+       lvg:
+         vg: vgora
+         force: yes
+         state: absent
+

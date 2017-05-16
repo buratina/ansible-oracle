@@ -55,15 +55,12 @@
   - debug: var=giinstall.stdout_lines
     when: master_node and checkgiinstall.stdout != "1"
 
-- pause:
-    minutes: 1
-
-  - name: Run oraInstroot script after installation
-    shell: "{{ oracle_inventory_loc }}/orainstRoot.sh"
-    sudo: yes
-    tags:
-      - runroot
-    when: checkgiinstall.stdout != "1"
+#  - name: Run oraInstroot script after installation
+#    shell: "{{ oracle_inventory_loc }}/orainstRoot.sh"
+#    sudo: yes
+#    tags:
+#      - runroot
+#    when: checkgiinstall.stdout != "1"
 
   - name: Run root script after installation (Master Node)
     shell: "{{ oracle_home_gi }}/root.sh"

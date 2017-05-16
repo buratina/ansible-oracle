@@ -11,9 +11,6 @@
          - oracle-ohasd
          - oracle-tfa
 
-     - pause:
-         seconds: 5
-
      - name: delete installation folders
        file:
          path: "{{ item }}"
@@ -29,6 +26,7 @@
          - CRS01
          - DATA01
          - FRA01
+       ignore_errors: true
 
      - name: unmount oracle installation directory
        mount:

@@ -11,10 +11,10 @@ fi
 while read -r device label owner group
 do
 
-if [[ ${device} == /dev/sda ]]; then
- echo "Trying to use root disk. Exiting"
- continue
-fi
+#if [[ ${device} == /dev/sda ]]; then
+# echo "Trying to use root disk. Exiting"
+# continue
+#fi
 
 scsiid=`$scsi_id_bin -g -u -d $device`
 chkexist=`grep $scsiid $UDEVRULE |wc -l`

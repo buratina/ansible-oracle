@@ -11,6 +11,9 @@
          - oracle-ohasd
          - oracle-tfa
 
+     - pause:
+         seconds: 5
+
      - name: delete installation folders
        file:
          path: "{{ item }}"

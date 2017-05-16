@@ -2,6 +2,14 @@
  - name: Clean up RAC installation and reset things
    hosts: orarac-dc1
    tasks:
+     - name: delete asm disks
+       command: oracleasm deletedisk {{ item }}
+       with_items:
+         - CRS01
+         - DATA01
+         - FRA01
+       ignore_errors: true
+
      - name: stop oracle services
        service:
          name: "{{ item }}"
@@ -20,14 +28,6 @@
          - /u01/stage
          - /home/oracle/.ssh
          - /etc/oracle
-
-     - name: delete asm disks
-       command: oracleasm deletedisk {{ item }}
-       with_items:
-         - CRS01
-         - DATA01
-         - FRA01
-       ignore_errors: true
 
      - name: unmount oracle installation directory
        mount:

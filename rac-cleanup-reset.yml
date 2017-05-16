@@ -35,12 +35,6 @@
          state: absent
        ignore_errors: true
 
-     - name: remove volume group vgora
-       lvg:
-         vg: vgora
-         force: yes
-         state: absent
-
      - name: Reboot server
        shell: "sleep 3; /usr/sbin/shutdown -r now"
        async: 1
@@ -60,3 +54,8 @@
        become: no
        when: inventory_hostname != '127.0.0.1' or hostvars[inventory_hostname].ansible_host != '127.0.0.1'
 
+     - name: remove volume group vgora
+       lvg:
+         vg: vgora
+         force: yes
+         state: absent

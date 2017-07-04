@@ -1,0 +1,12 @@
+galaxy_info:
+  author: "Orcun Atakan"
+  description: "Forked from https://github.com/oravirt/ansible-oracle."
+  company: "Red Hat"
+  license: "GPLv3"
+  min_ansible_version: 1.9
+  platforms:
+  - name: EL
+    versions:
+    - all
+  galaxy_tags:
+    - oracle

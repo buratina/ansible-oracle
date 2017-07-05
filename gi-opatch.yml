@@ -3,7 +3,7 @@
 
 
  - name: Apply latest PSU to GI
-   hosts: orarac-dc2
+   hosts: orarac-dc1
    user: ansible
    sudo: yes
    roles:

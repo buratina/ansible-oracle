@@ -126,6 +126,7 @@
       - bc
       - bind-utils
       - nfs-utils
+      - firewalld
       - util-linux-ng
       - xorg-x11-utils
       - xorg-x11-xauth
